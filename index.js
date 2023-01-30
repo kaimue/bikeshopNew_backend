@@ -1,5 +1,5 @@
 import "dotenv/config";
-import db from "./db.js";
+import mongoose from "mongoose";
 import express from "express";
 import cors from "cors";
 import products from "./routes/products.js";
@@ -10,7 +10,19 @@ import { ErrorResponse } from "./utils/errorResponse.js";
 
 const app = express();
 
-app.use(cors({ origin: "*" }));
+const connection = `${process.env.URL}`;
+
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(connection);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+};
+
+app.use(cors());
 app.use(express.json());
 
 app.use("/products", products);
@@ -23,4 +35,6 @@ app.use("*", (req, res, next) => {
 
 app.use(errorHandler);
 
-app.listen(`${process.env.PORT}`, () => console.log("server is running"));
+connectDB().then(() => {
+  app.listen(`${process.env.PORT}`, () => console.log("server is running"));
+});

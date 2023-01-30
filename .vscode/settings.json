@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/5c98978e-2931-498d-b0de-b6f677fe955e/AppServices/subscriptions/5c98978e-2931-498d-b0de-b6f677fe955e/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/bikeshopBackend",
+  "appService.deploySubpath": "."
+}
